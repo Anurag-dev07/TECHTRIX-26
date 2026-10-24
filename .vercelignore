@@ -1,0 +1,9 @@
+.git
+__pycache__
+*.pyc
+*.mp4
+phase1_output_demo.mp4
+tracer_operations.db
+.venv
+.pytest_cache
+*.log

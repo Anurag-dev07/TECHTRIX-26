@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Traffic & Crowd Density Operations Center - Unified White Theme Authority Dashboard">
+    <title>TRACER // Operations Command Center</title>
+
+    <!-- Embedded Clean SVG Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f0ff'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Tactical Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <!-- Light Theme Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-white">
+
+    <!-- ====================================================================
+         TRACER SECURE ACCESS PORTAL (HIGH-TECH HOLOGRAPHIC CYBER COMMAND)
+         ==================================================================== -->
+    <div id="loginScreen" class="login-overlay">
+        <!-- Interactive Canvas for Tactical Radar Sweep & Constellation Mesh -->
+        <canvas id="loginHudCanvas" class="login-hud-canvas"></canvas>
+
+        <!-- Ambient Cyber Glows & Perspective Space -->
+        <div class="login-ambient-glow glow-1"></div>
+        <div class="login-ambient-glow glow-2"></div>
+        <div class="login-ambient-glow glow-3"></div>
+        <div class="login-cyber-grid"></div>
+        <div class="login-scanline-laser"></div>
+        <div class="login-card holographic-tracer-card">
+            <!-- Tactical Corner HUD Reticles -->
+            <div class="hud-corner corner-tl"></div>
+            <div class="hud-corner corner-tr"></div>
+            <div class="hud-corner corner-bl"></div>
+            <div class="hud-corner corner-br"></div>
+
+            <!-- Top Live Telemetry Bar -->
+            <div class="tracer-top-telemetry">
+                <div class="telemetry-beacon">
+                    <span class="beacon-pulse"></span>
+                    <span class="beacon-text">CORE NEURAL LINK ACTIVE</span>
+                </div>
+                <div class="telemetry-sec-badge">
+                    <i class="fa-solid fa-lock"></i> SEC-LEVEL 4
+                </div>
+            </div>
+
+            <!-- Role Selector Tabs -->
+            <div class="login-role-selector">
+                <button type="button" class="btn-role-tab active" data-role="admin" id="roleTabAdmin">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Command Operator</span>
+                </button>
+                <button type="button" class="btn-role-tab" data-role="volunteer" id="roleTabVolunteer">
+                    <i class="fa-solid fa-clipboard-user"></i>
+                    <span>Field Volunteer</span>
+                </button>
+            </div>
+
+            <div class="login-header">
+                <div class="tracer-brand-wrapper">
+                    <div class="login-badge-icon" id="loginBadgeIcon">
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </div>
+                    <div class="tracer-brand-heading">
+                        <div class="tracer-title-row">
+                            <h2 id="loginTitle" class="tracer-title-gradient">TRACER</h2>
+                            <span class="tracer-ops-badge">AI OPS</span>
+                        </div>
+                        <span class="tracer-subtitle-sub">TACTICAL REAL-TIME ANALYSIS & CROWD EMERGENCY RESPONSE</span>
+                    </div>
+                </div>
+                <p id="loginSubtitle">Municipal Traffic & Crowd Management Authority // Full Operator Access</p>
+            </div>
+
+            <form id="loginForm" class="login-form" onsubmit="return false;">
+                <div class="input-field-group">
+                    <div class="input-label-row">
+                        <label for="usernameInput" id="labelUsername"><i class="fa-solid fa-user-shield"></i> Operator Clearance ID</label>
+                        <span class="input-tag" id="userAuthTag">[AUTHORIZED]</span>
+                    </div>
+                    <div class="input-wrapper-cyber">
+                        <i class="fa-solid fa-terminal input-icon-left"></i>
+                        <input type="text" id="usernameInput" placeholder="Enter username (e.g. admin)" value="admin" autocomplete="username" required>
+                    </div>
+                </div>
+
+                <div class="input-field-group">
+                    <div class="input-label-row">
+                        <label for="passwordInput"><i class="fa-solid fa-key"></i> Cryptographic Keyphrase</label>
+                        <span class="input-tag">[ENCRYPTED]</span>
+                    </div>
+                    <div class="input-wrapper-cyber">
+                        <i class="fa-solid fa-lock input-icon-left"></i>
+                        <input type="password" id="passwordInput" placeholder="Enter password (e.g. admin123)" value="admin123" autocomplete="current-password" required>
+                    </div>
+                </div>
+
+                <!-- Visual Interactive CAPTCHA Component -->
+                <div class="captcha-container cyber-captcha-container">
+                    <div class="input-label-row">
+                        <label><i class="fa-solid fa-microchip"></i> Quantum Visual CAPTCHA</label>
+                        <button type="button" class="btn-quick-verify" id="btnQuickSolveCaptcha" title="Click to instantly auto-verify CAPTCHA">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> AUTO-VERIFY
+                        </button>
+                    </div>
+                    <div class="captcha-box">
+                        <div class="captcha-canvas-frame">
+                            <canvas id="captchaCanvas" width="160" height="46" title="Click to refresh CAPTCHA"></canvas>
+                        </div>
+                        <button type="button" id="btnRefreshCaptcha" class="btn-refresh-captcha" title="Regenerate CAPTCHA">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                    </div>
+                    <div class="input-wrapper-cyber">
+                        <i class="fa-solid fa-shield-virus input-icon-left"></i>
+                        <input type="text" id="captchaInput" placeholder="Type the characters above" autocomplete="off" required>
+                    </div>
+                    <span id="captchaError" class="captcha-error-text"></span>
+                </div>
+
+                <button type="submit" id="btnLoginSubmit" class="btn-primary-login tracer-glow-btn">
+                    <i class="fa-solid fa-crosshairs"></i> <span id="loginSubmitTxt">Initialize TRACER Command Session</span>
+                </button>
+
+                <!-- Quick Autofill Helper Strip -->
+                <div class="quick-credentials-strip">
+                    <span class="quick-cred-label">QUICK FILL:</span>
+                    <button type="button" class="btn-quick-cred" id="btnCredAdmin">
+                        <i class="fa-solid fa-bolt"></i> Admin (admin / admin123)
+                    </button>
+                    <button type="button" class="btn-quick-cred" id="btnCredVolunteer">
+                        <i class="fa-solid fa-user-check"></i> Volunteer (volunteer / volunteer123)
+                    </button>
+                </div>
+
+                <!-- Real-time Tactical System Diagnostics Ticker -->
+                <div class="tracer-login-ticker">
+                    <span class="ticker-dot"></span>
+                    <span class="ticker-text" id="tracerLoginTicker">AES-256 ACTIVE ● MESH LATENCY 9ms ● AI INFERENCE 60 FPS ● DEFCON 1</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         MAIN OPERATIONS APPLICATION (ACCESSIBLE POST-LOGIN)
+         ==================================================================== -->
+    <div id="appContainer" class="app-layout" style="display: none;">
+        <!-- Clean Modern White Header -->
+        <header class="ops-navbar">
+            <div class="nav-brand">
+                <div class="brand-logo-icon">
+                    <i class="fa-solid fa-crosshairs"></i>
+                </div>
+                <div class="brand-text-wrap">
+                    <h1 id="brandTitle">TRACER <span class="badge-core" id="brandCoreBadge">OPS CORE</span></h1>
+                    <span class="brand-sub" id="brandSubText">Tactical Real-Time Analysis & Crowd Emergency Response</span>
+                </div>
+            </div>
+
+            <!-- Distinct Section Tab Navigation with Sliding Indicator -->
+            <nav class="nav-sections" id="navTabs">
+                <div class="nav-tab-slider" id="navTabSlider"></div>
+                <button class="nav-tab active" data-tab="section-heatmap" id="tabHeatmap">
+                    <i class="fa-solid fa-map-location-dot"></i> GIS Heat Map
+                </button>
+                <button class="nav-tab" data-tab="section-cameras" id="tabCameras">
+                    <i class="fa-solid fa-video"></i> Multi-Camera Grid
+                </button>
+                <button class="nav-tab" data-tab="section-decision" id="tabDecision">
+                    <i class="fa-solid fa-brain"></i> Decision Engine
+                    <span class="tab-bubble" id="tabRecBadge">0</span>
+                </button>
+                <button class="nav-tab" data-tab="section-alerts" id="tabAlerts">
+                    <i class="fa-solid fa-bell"></i> Alert Feed
+                    <span class="tab-bubble red" id="tabAlertBadge">0</span>
+                </button>
+                <button class="nav-tab" data-tab="section-analytics" id="tabAnalytics">
+                    <i class="fa-solid fa-database"></i> Database & Analytics
+                </button>
+            </nav>
+
+            <!-- Workspace Multi-Window Mode Switcher -->
+            <div class="workspace-layout-selector" id="workspaceModeSelector">
+                <button class="btn-layout-mode active" id="btnModeFocus" data-mode="focus" title="Single Focused Window View">
+                    <i class="fa-solid fa-square"></i> <span class="layout-label">Focus</span>
+                </button>
+                <button class="btn-layout-mode" id="btnModeGrid" data-mode="grid" title="Multi-Window 2x2 Grid Workspace">
+                    <i class="fa-solid fa-table-cells-large"></i> <span class="layout-label">Grid (All)</span>
+                </button>
+                <button class="btn-layout-mode" id="btnModeSplit" data-mode="split" title="Split Screen (Map + CCTV)">
+                    <i class="fa-solid fa-columns"></i> <span class="layout-label">Split</span>
+                </button>
+            </div>
+
+            <!-- Global Telemetry Readouts & User Controls -->
+            <div class="nav-telemetry">
+                <div class="stat-pill">
+                    <span class="stat-dot online"></span>
+                    <span class="stat-label">SYSTEM:</span>
+                    <strong class="stat-val text-green" id="topSystemStatus">ONLINE</strong>
+                </div>
+                <div class="stat-pill">
+                    <i class="fa-solid fa-person-walking text-primary"></i>
+                    <strong class="stat-val" id="topTotalPeds">0</strong>
+                    <span class="stat-label">Peds</span>
+                </div>
+                <div class="stat-pill">
+                    <i class="fa-solid fa-car text-amber"></i>
+                    <strong class="stat-val" id="topTotalVeh">0</strong>
+                    <span class="stat-label">Veh</span>
+                </div>
+                <div class="stat-pill">
+                    <i class="fa-solid fa-clock text-slate"></i>
+                    <strong class="stat-val font-mono" id="topClock">12:00:00</strong>
+                </div>
+
+                <!-- Tactical Audio Feedback Toggle -->
+                <button class="btn-audio-toggle" id="btnAudioToggle" title="Toggle Sound Feedback">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+
+                <!-- Operator Profile & Logout -->
+                <div class="user-profile">
+                    <div class="avatar-circle" id="userAvatar">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div class="user-meta-wrap">
+                        <span class="user-name" id="loggedInUserName">Admin</span>
+                        <span class="user-role-badge" id="userRoleBadge">COMMAND OPERATOR</span>
+                    </div>
+                    <button class="btn-logout" id="btnLogout" title="Log out of session">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Viewport Holding Tabbed Sections -->
+        <main class="main-content-viewport">
+
+            <!-- ============================================================
+                 WINDOW 1: GIS DENSITY & CONTINUOUS HEAT MAP
+                 ============================================================ -->
+            <section id="section-heatmap" class="ops-section-view ops-window active" data-window="heatmap">
+                <!-- Window Titlebar -->
+                <div class="window-titlebar">
+                    <div class="window-controls">
+                        <span class="win-btn win-red" data-action="close" title="Minimize Window"></span>
+                        <span class="win-btn win-yellow" data-action="tile" title="Toggle Grid View"></span>
+                        <span class="win-btn win-green" data-action="maximize" title="Maximize Window"></span>
+                    </div>
+                    <div class="window-title-wrap">
+                        <i class="fa-solid fa-map-location-dot text-primary"></i>
+                        <span class="window-title-text">WINDOW 1 // GIS SPATIAL HEAT MAP & SATELLITE HUD</span>
+                        <span class="win-status-pill green"><span class="win-dot blink"></span>60 FPS LIVE</span>
+                    </div>
+                    <div class="window-actions">
+                        <button class="btn-win-action" data-action="tile" title="Toggle Multi-Window Grid"><i class="fa-solid fa-table-cells-large"></i></button>
+                        <button class="btn-win-action" data-action="maximize" title="Maximize / Restore Window"><i class="fa-solid fa-expand"></i></button>
+                    </div>
+                </div>
+
+                <div class="window-content-body">
+                    <div class="section-toolbar">
+                        <div class="toolbar-left">
+                            <h2><i class="fa-solid fa-map-location-dot text-primary"></i> Real-World GIS Density & Heat Map</h2>
+                            <span class="toolbar-desc">Perspective Homography Real-World Coordinates (cv2.findHomography) & Continuous Gaussian Heatmaps</span>
+                        </div>
+
+                        <!-- Heatmap Layer Controls -->
+                        <div class="heatmap-controls-bar">
+                            <div class="control-item">
+                                <label><i class="fa-solid fa-fire text-amber"></i> Heatmap Intensity:</label>
+                                <input type="range" id="heatIntensitySlider" min="20" max="150" value="85" class="slider-clean">
+                                <span id="heatIntensityVal" class="slider-val">85%</span>
+                            </div>
+                            <div class="control-item">
+                                <label><i class="fa-solid fa-circle-dot text-primary"></i> Radius:</label>
+                                <input type="range" id="heatRadiusSlider" min="15" max="55" value="32" class="slider-clean">
+                                <span id="heatRadiusVal" class="slider-val">32px</span>
+                            </div>
+                            <div class="legend-pills">
+                                <span class="legend-pill green"><span class="dot"></span>Safe (&lt;40%)</span>
+                                <span class="legend-pill yellow"><span class="dot"></span>Moderate (40-75%)</span>
+                                <span class="legend-pill red"><span class="dot"></span>Critical (&gt;75%)</span>
+                                <span class="legend-pill purple"><span class="dot"></span>Emergency Corridor</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real-Time Dynamic Crowd Diversion Alert Banner -->
+                    <div class="realtime-diversion-banner" id="realtimeDiversionBanner" style="display: none;">
+                        <div class="rtd-pulse-dot"></div>
+                        <div class="rtd-info">
+                            <span class="rtd-badge"><i class="fa-solid fa-arrows-split-up-and-left"></i> REAL-TIME DIVERSION ACTIVE</span>
+                            <span class="rtd-text">Inflow from <strong>Gate A (Main Plaza)</strong> actively diverted ➡ <strong>Gate C (East Esplanade)</strong></span>
+                        </div>
+                        <div class="rtd-metrics">
+                            <span class="rtd-stat"><i class="fa-solid fa-person-walking-arrow-right"></i> Diverted: <strong id="rtdDivertedCount">0</strong> peds</span>
+                            <span class="rtd-stat text-green"><i class="fa-solid fa-arrow-trend-down"></i> Gate A Load Relieved: <strong id="rtdGateARelief">-62%</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Full Interactive Canvas GIS Heatmap Canvas -->
+                    <div class="gis-map-canvas-container" id="gisMapContainer">
+                        <!-- HTML5 Tactical Canvas rendered via map.js -->
+                    </div>
+
+                    <!-- Bottom Telemetry HUD Bar for Map -->
+                    <div class="gis-bottom-hud">
+                        <div class="hud-card" id="hudGateA">
+                            <div class="hud-card-header">
+                                <span class="hud-title">GATE A (MAIN PLAZA)</span>
+                                <span class="hud-status-badge green" id="hudGateAStatus">SAFE</span>
+                            </div>
+                            <div class="hud-meter">
+                                <div class="meter-bar green" id="hudGateABar" style="width: 35%;"></div>
+                            </div>
+                            <div class="hud-meta">
+                                <span>Count: <strong id="hudGateACount">21</strong> / 60</span>
+                                <span>Density: <strong id="hudGateADensity">0.28</strong> p/m²</span>
+                            </div>
+                        </div>
+
+                        <div class="hud-card" id="hudGateB">
+                            <div class="hud-card-header">
+                                <span class="hud-title">GATE B (NORTH CONCOURSE)</span>
+                                <span class="hud-status-badge yellow" id="hudGateBStatus">MONITOR</span>
+                            </div>
+                            <div class="hud-meter">
+                                <div class="meter-bar yellow" id="hudGateBBar" style="width: 60%;"></div>
+                            </div>
+                            <div class="hud-meta">
+                                <span>Count: <strong id="hudGateBCount">60</strong> / 100</span>
+                                <span>Area: 130 m²</span>
+                            </div>
+                        </div>
+
+                        <div class="hud-card" id="hudGateC">
+                            <div class="hud-card-header">
+                                <span class="hud-title">GATE C (EAST ESPLANADE - DIVERSION)</span>
+                                <span class="hud-status-badge green">SAFE</span>
+                            </div>
+                            <div class="hud-meter">
+                                <div class="meter-bar green" style="width: 18%;"></div>
+                            </div>
+                            <div class="hud-meta">
+                                <span>Occupancy: <strong>17.5%</strong> (14/80)</span>
+                                <span>Status: Open Alternative</span>
+                            </div>
+                        </div>
+
+                        <div class="hud-card" id="hudSignals">
+                            <div class="hud-card-header">
+                                <span class="hud-title">INTERSECTION SIGNALS</span>
+                                <span class="hud-status-badge blue" id="hudGreenWaveStatus">NORMAL</span>
+                            </div>
+                            <div class="signals-summary">
+                                <div>Junction Alpha: <strong id="sigAlphaTxt" class="text-green">N/S GREEN (30s)</strong></div>
+                                <div>Junction Beta: <strong id="sigBetaTxt" class="text-green">E/W GREEN (25s)</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 WINDOW 2: MULTI-CAMERA CCTV STREAM GRID
+                 ============================================================ -->
+            <section id="section-cameras" class="ops-section-view ops-window" data-window="cameras">
+                <!-- Window Titlebar -->
+                <div class="window-titlebar">
+                    <div class="window-controls">
+                        <span class="win-btn win-red" data-action="close" title="Minimize Window"></span>
+                        <span class="win-btn win-yellow" data-action="tile" title="Toggle Grid View"></span>
+                        <span class="win-btn win-green" data-action="maximize" title="Maximize Window"></span>
+                    </div>
+                    <div class="window-title-wrap">
+                        <i class="fa-solid fa-video text-primary"></i>
+                        <span class="window-title-text">WINDOW 2 // MULTI-CAMERA CCTV STREAM GRID</span>
+                        <span class="win-status-pill blue"><span class="win-dot blink"></span>4 CHANNELS (YOLOv8 + BYTETRACK)</span>
+                    </div>
+                    <div class="window-actions">
+                        <button class="btn-win-action" data-action="tile" title="Toggle Multi-Window Grid"><i class="fa-solid fa-table-cells-large"></i></button>
+                        <button class="btn-win-action" data-action="maximize" title="Maximize / Restore Window"><i class="fa-solid fa-expand"></i></button>
+                    </div>
+                </div>
+
+                <div class="window-content-body">
+                    <div class="section-toolbar">
+                        <div class="toolbar-left">
+                            <h2><i class="fa-solid fa-video text-primary"></i> Multi-Camera CCTV Grid (YOLOv8 + ByteTrack)</h2>
+                            <span class="toolbar-desc">Live Computer Vision video feeds with detected bounding boxes, tracked trajectories, and ROI boundary polygons</span>
+                        </div>
+                        <div class="toolbar-right">
+                            <span class="stream-live-pill"><i class="fa-solid fa-circle text-red blink"></i> 4 STREAMS STREAMING AT 5 FPS</span>
+                        </div>
+                    </div>
+
+                    <div class="camera-grid-layout">
+                        <!-- Camera 1: Gate A Turnstiles -->
+                        <div class="camera-stream-card" id="cardCam01" data-cam-id="CAM_01" title="Click to Inspect HD Feed">
+                            <div class="cam-card-top">
+                                <div class="cam-name-wrap">
+                                    <span class="cam-badge-id">CAM-01</span>
+                                    <h3>Gate A Entrance Turnstiles</h3>
+                                </div>
+                                <span class="status-chip green" id="cam01Badge">SAFE (35%)</span>
+                            </div>
+                            <div class="cam-video-frame">
+                                <div class="cam-inspect-overlay"><i class="fa-solid fa-expand"></i> INSPECT HD</div>
+                                <img id="feedCam01" class="cam-img-feed" alt="Camera 01 Live Stream" src="" />
+                            </div>
+                            <div class="cam-card-bottom">
+                                <div class="cam-metric"><i class="fa-solid fa-user-group text-primary"></i> Pedestrians: <strong id="cam01Count">0</strong></div>
+                                <div class="cam-metric"><i class="fa-solid fa-ruler-combined"></i> Area: <strong>75 m²</strong></div>
+                                <div class="cam-metric"><i class="fa-solid fa-chart-line"></i> Density: <strong id="cam01Density">0.00</strong>/m²</div>
+                            </div>
+                        </div>
+
+                        <!-- Camera 2: North Concourse (CSRNet Dense) -->
+                        <div class="camera-stream-card" id="cardCam02" data-cam-id="CAM_02" title="Click to Inspect HD Feed">
+                            <div class="cam-card-top">
+                                <div class="cam-name-wrap">
+                                    <span class="cam-badge-id">CAM-02</span>
+                                    <h3>North Concourse Gathering [CSRNet]</h3>
+                                </div>
+                                <span class="status-chip yellow" id="cam02Badge">MODERATE</span>
+                            </div>
+                            <div class="cam-video-frame">
+                                <div class="cam-inspect-overlay"><i class="fa-solid fa-expand"></i> INSPECT HD</div>
+                                <img id="feedCam02" class="cam-img-feed" alt="Camera 02 Live Stream" src="" />
+                            </div>
+                            <div class="cam-card-bottom">
+                                <div class="cam-metric"><i class="fa-solid fa-users text-amber"></i> Crowd Count: <strong id="cam02Count">0</strong></div>
+                                <div class="cam-metric"><i class="fa-solid fa-ruler-combined"></i> Area: <strong>150 m²</strong></div>
+                                <div class="cam-metric"><i class="fa-solid fa-wave-square"></i> KDE Peak: <strong id="cam02Peak">0.000</strong></div>
+                            </div>
+                        </div>
+
+                        <!-- Camera 3: Junction Alpha -->
+                        <div class="camera-stream-card" id="cardCam03" data-cam-id="CAM_03" title="Click to Inspect HD Feed">
+                            <div class="cam-card-top">
+                                <div class="cam-name-wrap">
+                                    <span class="cam-badge-id">CAM-03</span>
+                                    <h3>Junction Alpha (Main Blvd & 4th Ave)</h3>
+                                </div>
+                                <span class="status-chip green" id="cam03Badge">FLOWING</span>
+                            </div>
+                            <div class="cam-video-frame">
+                                <div class="cam-inspect-overlay"><i class="fa-solid fa-expand"></i> INSPECT HD</div>
+                                <img id="feedCam03" class="cam-img-feed" alt="Camera 03 Live Stream" src="" />
+                            </div>
+                            <div class="cam-card-bottom">
+                                <div class="cam-metric"><i class="fa-solid fa-car text-amber"></i> Vehicles: <strong id="cam03Vehicles">0</strong></div>
+                                <div class="cam-metric"><i class="fa-solid fa-person-walking text-primary"></i> Pedestrians: <strong id="cam03Peds">0</strong></div>
+                                <div class="cam-metric"><i class="fa-solid fa-traffic-light"></i> Signal Phase: <strong id="cam03Phase">NORMAL</strong></div>
+                            </div>
+                        </div>
+
+                        <!-- Camera 4: Route 101 Hospital Corridor -->
+                        <div class="camera-stream-card" id="cardCam04" data-cam-id="CAM_04" title="Click to Inspect HD Feed">
+                            <div class="cam-card-top">
+                                <div class="cam-name-wrap">
+                                    <span class="cam-badge-id">CAM-04</span>
+                                    <h3>Route 101 Hospital Priority Corridor</h3>
+                                </div>
+                                <span class="status-chip green" id="cam04Badge">CLEAR</span>
+                            </div>
+                            <div class="cam-video-frame">
+                                <div class="cam-inspect-overlay"><i class="fa-solid fa-expand"></i> INSPECT HD</div>
+                                <img id="feedCam04" class="cam-img-feed" alt="Camera 04 Live Stream" src="" />
+                            </div>
+                            <div class="cam-card-bottom">
+                                <div class="cam-metric"><i class="fa-solid fa-shield-halved"></i> Route: <strong id="cam04Status">CORRIDOR IDLE</strong></div>
+                                <div class="cam-metric"><i class="fa-solid fa-car text-amber"></i> Vehicles: <strong id="cam04Veh">0</strong></div>
+                                <div class="cam-metric"><i class="fa-solid fa-truck-medical text-red"></i> Ambulance: <strong id="cam04Amb">0</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 WINDOW 3: DECISION ENGINE & SIMULATION CONTROLS
+                 ============================================================ -->
+            <section id="section-decision" class="ops-section-view ops-window" data-window="decision">
+                <!-- Window Titlebar -->
+                <div class="window-titlebar">
+                    <div class="window-controls">
+                        <span class="win-btn win-red" data-action="close" title="Minimize Window"></span>
+                        <span class="win-btn win-yellow" data-action="tile" title="Toggle Grid View"></span>
+                        <span class="win-btn win-green" data-action="maximize" title="Maximize Window"></span>
+                    </div>
+                    <div class="window-title-wrap">
+                        <i class="fa-solid fa-brain text-primary"></i>
+                        <span class="window-title-text">WINDOW 3 // AUTOMATED DECISION & SIMULATION ENGINE</span>
+                        <span class="win-status-pill purple"><span class="win-dot"></span>RULES STATE MACHINE</span>
+                    </div>
+                    <div class="window-actions">
+                        <button class="btn-win-action" data-action="tile" title="Toggle Multi-Window Grid"><i class="fa-solid fa-table-cells-large"></i></button>
+                        <button class="btn-win-action" data-action="maximize" title="Maximize / Restore Window"><i class="fa-solid fa-expand"></i></button>
+                    </div>
+                </div>
+
+                <div class="window-content-body">
+                    <div class="section-toolbar">
+                        <div class="toolbar-left">
+                            <h2><i class="fa-solid fa-brain text-primary"></i> Automated Recommendation & Decision Engine</h2>
+                            <span class="toolbar-desc">Rules-based State Machine: Inflow Diversion (>80%), Dynamic Traffic Light Timings, and Ambulance Green Wave Corridors</span>
+                        </div>
+                    </div>
+
+                    <!-- Volunteer Ground Notice Banner (Visible only when logged in as Volunteer) -->
+                    <div id="volunteerNoticeBanner" class="volunteer-notice-banner" style="display: none;">
+                        <div class="v-banner-left">
+                            <div class="v-banner-icon"><i class="fa-solid fa-clipboard-user"></i></div>
+                            <div>
+                                <strong>FIELD VOLUNTEER STEWARD DISPATCH VIEW (READ-ONLY)</strong>
+                                <p>Simulation injection and physical signal overrides are restricted to Command Staff. Ground volunteers can view live crowd advisories and acknowledge steward diversion tasks.</p>
+                            </div>
+                        </div>
+                        <span class="v-banner-pill"><i class="fa-solid fa-lock"></i> Restricted Controls</span>
+                    </div>
+
+                    <div class="decision-content-layout">
+                        <!-- Left: Interactive Simulation Triggers -->
+                        <div class="simulation-launcher-panel">
+                            <div class="subpanel-header">
+                                <h3><i class="fa-solid fa-sliders text-primary"></i> Operational Simulation Triggers</h3>
+                                <p>Instantly trigger real-world emergency conditions to test automated decision rules:</p>
+                            </div>
+
+                            <div class="sim-card-options">
+                                <div class="sim-option-card">
+                                    <div class="sim-option-icon amber">
+                                        <i class="fa-solid fa-users-rays"></i>
+                                    </div>
+                                    <div class="sim-option-info">
+                                        <h4>Crowd Surge at Gate A (>80% Capacity)</h4>
+                                        <p>Simulates heavy crowd arrival at Gate A turnstiles to test the automated Inflow Diversion rule and alternative gate rerouting.</p>
+                                    </div>
+                                    <button class="btn-action-trigger btn-surge-trigger" id="btnTriggerSurgeAction">
+                                        <i class="fa-solid fa-bolt"></i> <span id="surgeActionTxt">Trigger Surge</span>
+                                    </button>
+                                </div>
+
+                                <div class="sim-option-card">
+                                    <div class="sim-option-icon red">
+                                        <i class="fa-solid fa-truck-medical"></i>
+                                    </div>
+                                    <div class="sim-option-info">
+                                        <h4>Dispatch Code-3 Priority Ambulance</h4>
+                                        <p>Dispatches an emergency vehicle onto Route 101 to test automated Green Wave traffic signal priority and adjacent street diversion warnings.</p>
+                                    </div>
+                                    <button class="btn-action-trigger btn-amb-trigger" id="btnDispatchAmbAction">
+                                        <i class="fa-solid fa-siren-on"></i> Dispatch Ambulance
+                                    </button>
+                                </div>
+
+                                <div class="sim-option-card">
+                                    <div class="sim-option-icon purple">
+                                        <i class="fa-solid fa-arrows-split-up-and-left"></i>
+                                    </div>
+                                    <div class="sim-option-info">
+                                        <h4>Enforce Real-Time Crowd Diversion</h4>
+                                        <p>Directly activates real-time pedestrian rerouting from Gate A to Gate C. Displays overhead digital VMS signage, locks turnstiles, and guides crowd along the illuminated corridor.</p>
+                                    </div>
+                                    <button class="btn-action-trigger btn-diversion-trigger" id="btnTriggerDiversionAction">
+                                        <i class="fa-solid fa-route"></i> <span id="diversionActionTxt">Enforce Diversion</span>
+                                    </button>
+                                </div>
+
+                                <div class="sim-option-card">
+                                    <div class="sim-option-icon slate">
+                                        <i class="fa-solid fa-rotate-left"></i>
+                                    </div>
+                                    <div class="sim-option-info">
+                                        <h4>Reset Simulation to Baseline Flow</h4>
+                                        <p>Restores nominal crowds, reopens turnstiles, and resets traffic signals and emergency corridors back to standard steady-state flow.</p>
+                                    </div>
+                                    <button class="btn-action-trigger btn-reset-trigger" id="btnResetSimAction">
+                                        <i class="fa-solid fa-arrow-rotate-right"></i> Reset Flow
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Rule Logic Overview Cards -->
+                            <div class="rules-explainer-box">
+                                <h4>Active Rule Automation Matrix</h4>
+                                <div class="rule-item">
+                                    <span class="rule-tag">RULE 1</span>
+                                    <div><strong>Inflow Diversion:</strong> If any gate occupancy exceeds 80%, flag as BLOCKED, compute nearest open gate (e.g. Gate C), and dispatch steward alerts.</div>
+                                </div>
+                                <div class="rule-item">
+                                    <span class="rule-tag">RULE 2</span>
+                                    <div><strong>Traffic Optimization:</strong> Adjust intersection green phases dynamically ($15\text{s} - 80\text{s}$) proportional to detected queue length.</div>
+                                </div>
+                                <div class="rule-item">
+                                    <span class="rule-tag">RULE 3</span>
+                                    <div><strong>Green Wave Corridor:</strong> When an emergency vehicle is detected, lock signals along the Hospital Express route to continuous GREEN.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Pending Actions List -->
+                        <div class="pending-actions-panel">
+                            <div class="subpanel-header">
+                                <div class="flex-between">
+                                    <h3><i class="fa-solid fa-clipboard-check text-green"></i> Action Recommendations</h3>
+                                    <span class="badge-pending" id="actionCountBadge">0 PENDING</span>
+                                </div>
+                                <p>Automated suggestions generated by the rules engine for operator approval or override:</p>
+                            </div>
+
+                            <div class="actions-list-container" id="recommendationsList">
+                                <div class="empty-state-card" id="emptyRecState">
+                                    <i class="fa-solid fa-circle-check text-green"></i>
+                                    <h4>All Zones Operating Within Normal Capacity</h4>
+                                    <p>No critical interventions required. Trigger a simulation to generate actionable recommendations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 WINDOW 4: ALERT FEED & TIMELINE
+                 ============================================================ -->
+            <section id="section-alerts" class="ops-section-view ops-window" data-window="alerts">
+                <!-- Window Titlebar -->
+                <div class="window-titlebar">
+                    <div class="window-controls">
+                        <span class="win-btn win-red" data-action="close" title="Minimize Window"></span>
+                        <span class="win-btn win-yellow" data-action="tile" title="Toggle Grid View"></span>
+                        <span class="win-btn win-green" data-action="maximize" title="Maximize Window"></span>
+                    </div>
+                    <div class="window-title-wrap">
+                        <i class="fa-solid fa-bell text-red"></i>
+                        <span class="window-title-text">WINDOW 4 // CENTRALIZED AUDIT & INCIDENT LOGS</span>
+                        <span class="win-status-pill red"><span class="win-dot blink"></span>REAL-TIME FEED</span>
+                    </div>
+                    <div class="window-actions">
+                        <button class="btn-win-action" data-action="tile" title="Toggle Multi-Window Grid"><i class="fa-solid fa-table-cells-large"></i></button>
+                        <button class="btn-win-action" data-action="maximize" title="Maximize / Restore Window"><i class="fa-solid fa-expand"></i></button>
+                    </div>
+                </div>
+
+                <div class="window-content-body">
+                    <div class="section-toolbar">
+                        <div class="toolbar-left">
+                            <h2><i class="fa-solid fa-bell text-red"></i> Centralized Alert & Incident Timeline</h2>
+                            <span class="toolbar-desc">Chronological log of overcrowding spikes, stampede movement turbulence, and emergency vehicle arrivals</span>
+                        </div>
+                        <div class="toolbar-right">
+                            <button class="btn-clean" id="btnClearAlerts">
+                                <i class="fa-solid fa-trash-can"></i> Clear Resolved
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="alert-timeline-container">
+                        <div class="alerts-feed-wrapper" id="alertFeedList">
+                            <div class="empty-state-card" id="emptyAlertState">
+                                <i class="fa-solid fa-shield-halved text-primary"></i>
+                                <h4>System Clear</h4>
+                                <p>No anomalous crowd dispersal or emergency vehicle events active.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 WINDOW 5: PERSISTENT DATABASE & AUDIT ANALYTICS
+                 ============================================================ -->
+            <section id="section-analytics" class="ops-section-view ops-window" data-window="analytics">
+                <!-- Window Titlebar -->
+                <div class="window-titlebar">
+                    <div class="window-controls">
+                        <span class="win-btn win-red" data-action="close" title="Minimize Window"></span>
+                        <span class="win-btn win-yellow" data-action="tile" title="Toggle Grid View"></span>
+                        <span class="win-btn win-green" data-action="maximize" title="Maximize Window"></span>
+                    </div>
+                    <div class="window-title-wrap">
+                        <i class="fa-solid fa-database text-primary"></i>
+                        <span class="window-title-text">WINDOW 5 // PERSISTENT SQLITE DATABASE & AUDIT TRAIL</span>
+                        <span class="win-status-pill green"><span class="win-dot blink"></span>WAL PERSISTENT</span>
+                    </div>
+                    <div class="window-actions">
+                        <button class="btn-win-action" data-action="tile" title="Toggle Multi-Window Grid"><i class="fa-solid fa-table-cells-large"></i></button>
+                        <button class="btn-win-action" data-action="maximize" title="Maximize / Restore Window"><i class="fa-solid fa-expand"></i></button>
+                    </div>
+                </div>
+
+                <div class="window-content-body">
+                    <div class="section-toolbar">
+                        <div class="toolbar-left">
+                            <h2><i class="fa-solid fa-database text-primary"></i> Persistent Data Storage & Executive Analytics</h2>
+                            <span class="toolbar-desc">SQLite WAL-Mode Data Engine • Time-Series Snapshots • Legal Audit Trail • RFC-4180 CSV Export</span>
+                        </div>
+                        <div class="toolbar-right">
+                            <button class="btn-clean" id="btnRefreshAnalytics" title="Refresh Live Database Metrics">
+                                <i class="fa-solid fa-rotate-right"></i> Refresh
+                            </button>
+                            <div class="dropdown-export">
+                                <button class="btn-primary-action" id="btnExportMenu">
+                                    <i class="fa-solid fa-download"></i> Export Data <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                                <div class="export-dropdown-content" id="exportDropdownMenu">
+                                    <a href="/api/export/telemetry_history" download><i class="fa-solid fa-file-csv"></i> Telemetry Time-Series (CSV)</a>
+                                    <a href="/api/export/alerts_history" download><i class="fa-solid fa-file-csv"></i> Incident Alerts Log (CSV)</a>
+                                    <a href="/api/export/decisions_audit" download><i class="fa-solid fa-file-csv"></i> Decision Audit Trail (CSV)</a>
+                                    <a href="/api/export/system_events" download><i class="fa-solid fa-file-csv"></i> System Events Log (CSV)</a>
+                                </div>
+                            </div>
+                            <button class="btn-danger-clean" id="btnClearDatabase" title="Purge database logs for a fresh test run">
+                                <i class="fa-solid fa-trash-can"></i> Purge Data
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Executive KPI Cards Grid -->
+                    <div class="analytics-kpi-grid">
+                        <div class="analytics-kpi-card">
+                            <div class="kpi-icon-wrap bg-blue-subtle text-primary">
+                                <i class="fa-solid fa-server"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Recorded Snapshots</span>
+                                <h3 id="dbKpiTicks" class="kpi-value">0</h3>
+                                <span class="kpi-sub">Continuous 2s telemetry</span>
+                            </div>
+                        </div>
+
+                        <div class="analytics-kpi-card">
+                            <div class="kpi-icon-wrap bg-indigo-subtle text-indigo">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Peak Crowd Count</span>
+                                <h3 id="dbKpiPeakPeds" class="kpi-value">0</h3>
+                                <span class="kpi-sub" id="dbKpiAvgPeds">Avg: 0 peds</span>
+                            </div>
+                        </div>
+
+                        <div class="analytics-kpi-card">
+                            <div class="kpi-icon-wrap bg-amber-subtle text-amber">
+                                <i class="fa-solid fa-door-open"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Gate A Peak Load</span>
+                                <h3 id="dbKpiGateAPct" class="kpi-value">0%</h3>
+                                <span class="kpi-sub" id="dbKpiGateACount">Max: 0 / 60</span>
+                            </div>
+                        </div>
+
+                        <div class="analytics-kpi-card">
+                            <div class="kpi-icon-wrap bg-emerald-subtle text-green">
+                                <i class="fa-solid fa-arrows-split-up-and-left"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Safely Diverted</span>
+                                <h3 id="dbKpiDiverted" class="kpi-value">0</h3>
+                                <span class="kpi-sub">Pedestrians rerouted</span>
+                            </div>
+                        </div>
+
+                        <div class="analytics-kpi-card">
+                            <div class="kpi-icon-wrap bg-rose-subtle text-red">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Alerts Recorded</span>
+                                <h3 id="dbKpiAlerts" class="kpi-value">0</h3>
+                                <span class="kpi-sub" id="dbKpiCritAlerts">0 critical</span>
+                            </div>
+                        </div>
+
+                        <div class="analytics-kpi-card">
+                            <div class="kpi-icon-wrap bg-purple-subtle text-purple">
+                                <i class="fa-solid fa-gavel"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Audit Compliance</span>
+                                <h3 id="dbKpiCompliance" class="kpi-value">100%</h3>
+                                <span class="kpi-sub" id="dbKpiDecisionsCount">0 operator decisions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Database Sub-Tabs View -->
+                    <div class="db-tables-container">
+                        <div class="db-tab-bar">
+                            <button class="btn-db-subtab active" data-dbtab="tabTelemetryHistory">
+                                <i class="fa-solid fa-chart-line"></i> Telemetry Time-Series
+                            </button>
+                            <button class="btn-db-subtab" data-dbtab="tabAlertsArchive">
+                                <i class="fa-solid fa-bell"></i> Persistent Alerts Archive
+                            </button>
+                            <button class="btn-db-subtab" data-dbtab="tabDecisionsAudit">
+                                <i class="fa-solid fa-scale-balanced"></i> Operator Decision Audit Trail
+                            </button>
+                            <button class="btn-db-subtab" data-dbtab="tabSystemEvents">
+                                <i class="fa-solid fa-clock-rotate-left"></i> System Events Log
+                            </button>
+                        </div>
+
+                        <!-- Panel 1: Telemetry Time-Series -->
+                        <div class="db-subtab-panel active" id="tabTelemetryHistory">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Total Peds</th>
+                                            <th>Total Veh</th>
+                                            <th>Gate A (Count / %)</th>
+                                            <th>Gate B (Count / %)</th>
+                                            <th>Gate C Occupancy</th>
+                                            <th>Diversion</th>
+                                            <th>Green Wave</th>
+                                            <th>System Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="telemetryHistoryTableBody">
+                                        <tr><td colspan="9" class="text-center py-4 text-slate">Loading telemetry records from database...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Panel 2: Alerts Archive -->
+                        <div class="db-subtab-panel" id="tabAlertsArchive">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Alert ID</th>
+                                            <th>Severity</th>
+                                            <th>Camera / Location</th>
+                                            <th>Title</th>
+                                            <th>Message</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="alertsArchiveTableBody">
+                                        <tr><td colspan="6" class="text-center py-4 text-slate">No persistent alerts logged yet.</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Panel 3: Decisions Audit -->
+                        <div class="db-subtab-panel" id="tabDecisionsAudit">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Action ID</th>
+                                            <th>Rule Type</th>
+                                            <th>Recommendation Title</th>
+                                            <th>Decision</th>
+                                            <th>Operator ID</th>
+                                            <th>Operator Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="decisionsAuditTableBody">
+                                        <tr><td colspan="7" class="text-center py-4 text-slate">No operator decisions logged in audit trail yet.</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Panel 4: System Events -->
+                        <div class="db-subtab-panel" id="tabSystemEvents">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Event Type</th>
+                                            <th>Operator</th>
+                                            <th>Summary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="systemEventsTableBody">
+                                        <tr><td colspan="4" class="text-center py-4 text-slate">Loading system events...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ====================================================================
+         EXPANDED CAMERA HD INSPECTION MODAL
+         ==================================================================== -->
+    <div id="cameraModal" class="modal-overlay">
+        <div class="cam-inspect-modal">
+            <div class="modal-header">
+                <h3 id="modalCamTitle"><i class="fa-solid fa-video text-primary"></i> CAM-01 // Gate A Turnstiles</h3>
+                <button class="btn-close-modal" id="btnCloseModal" title="Close Inspection Window (Esc)">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-video-wrap">
+                    <img id="modalCamFeed" alt="Expanded Camera Stream" src="" />
+                </div>
+                <div class="modal-sidebar">
+                    <h4>Tactical Telemetry</h4>
+                    <div class="telemetry-row">
+                        <span>Resolution:</span>
+                        <strong>1920x1080 (FHD)</strong>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Stream Bitrate:</span>
+                        <strong id="modalBitrate">4.24 Mbps</strong>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Detection Engine:</span>
+                        <strong>YOLOv8 + ByteTrack</strong>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Risk Level:</span>
+                        <strong id="modalRisk">SAFE (35%)</strong>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Tracked Entities:</span>
+                        <strong id="modalEntities">24 Objects</strong>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Homography Calibration:</span>
+                        <strong class="text-green">CALIBRATED (DLT)</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Centralized Toast Notification Stack -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Custom Modular Dashboard Scripts -->
+    <script src="js/map.js"></script>
+    <script src="js/camera_grid.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
